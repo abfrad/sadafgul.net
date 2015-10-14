@@ -1,0 +1,46 @@
+@import "foundation/variables";
+@import "foundation/components/global";
+@import "foundation/components/pagination";
+
+.your-class-name { @include pagination; }
+
+.container-class-name { @include pagination-container(true); }
+.your-class-name { @include pagination($centered, $base-styles); }
+
+/* Setting this to true will remove floats on li elements and display them as inline-block */
+$centered: true
+
+/* This controls whether or not the base styles come across. Useful when applying the centered option. */
+$base-style: true
+
+
+$include-html-nav-classes: $include-html-classes;
+
+/* We use these to control the pagination container */
+$pagination-height: em-calc(24);
+$pagination-margin: em-calc(-5);
+
+/* We use these to set the list-item properties */
+$pagination-li-float: $default-float;
+$pagination-li-height: em-calc(24);
+$pagination-li-font-color: #222;
+$pagination-li-font-size: em-calc(14);
+$pagination-li-margin: em-calc(5);
+
+/* We use these for the pagination anchor links */
+$pagination-link-pad: em-calc(1 7 1);
+$pagination-link-font-color: #999;
+$pagination-link-active-bg: darken(#fff, 10%);
+
+/* We use these for disabled anchor links */
+$pagination-link-unavailable-cursor: default;
+$pagination-link-unavailable-font-color: #999;
+$pagination-link-unavailable-bg-active: transparent;
+
+/* We use these for currently selected anchor links */
+$pagination-link-current-background: $primary-color;
+$pagination-link-current-font-color: #fff;
+$pagination-link-current-font-weight: bold;
+$pagination-link-current-cursor: default;
+$pagination-link-current-active-bg: $primary-color;
+
