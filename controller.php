@@ -27,9 +27,29 @@ while ($pjrow = mysqli_fetch_assoc($pjresult)) {
 
 }
 
+/*
+$path ="Projects_Gallery/$id";
+$files = scandir($path);
 
 
+for ($i=0 ; $i< count($files); $i++)
+{
+	
+	if ($files[$i] !='.' && $files[$i] !='..'&& $files[$i] !='_notes')
+	{
+//print($files[$i]);
+$file=pathinfo($path . $files[$i]);
+	//if ($file['extension']=='png')
+	//{
+	//	print($file['extension']);
+	//	print($files[$i]);
+		//echo ('<iframe width="560" height="315" src="https://www.youtube.com/embed/2hffbFKHJS4" frameborder="0" allowfullscreen></iframe>');
+		//echo($file);
+	//}
+	}
+}
 
+*/
 echo "
 
 

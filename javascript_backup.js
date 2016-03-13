@@ -41,29 +41,35 @@ function scrlto(elem) {
     $(document).ready( function(){
     
     //y offset of the element minus 55 pixels
-		var eltop= ($(elem).offset().top) - 55;
+    var eltop= ($(elem).offset().top) - 55;
+         
+		
+   
+            $("body").animate ({
 
-		$("body").animate ({
+               scrollTop: eltop
+                }, 1000, function(){
 
-			scrollTop: eltop
-
-		 }, 1000, function(){
-			//Item in proper scroll
-			scroled=true;
-		});               
+                //Item in proper scroll
+                scroled=true;
+            });               
           
     });
 }
 
 
+
 //////////////////JQUERY LISTENERS
 
-$(document).ready(function() {
+ $(document).ready(function() {
+ 
+	 
+	 
 
  });
 
 
-window.onscroll=function() {
+ window.onscroll=function() {
      
     //var scy=this.scrollY;
     scy=document.body.scrollTop;
@@ -72,23 +78,25 @@ window.onscroll=function() {
     clearTimeout (scrltimer);
 
     scrltimer= setTimeout(function(){ 
-		scrlCheck();
+
+        scrlCheck();
+
     }, 100);
 
  } 
  
  
-function scrlCheck () {
-	 
+ function scrlCheck () {
      scy=document.body.scrollTop;
-	 
-     if (scy<1){  
-         maximize();         
+     if (scy<1){ 
+         
+         maximize();
+               
      } 
-	 
-     else { 
-         minimize();          
-     }
+     else {
+         minimize(); 
+                
+                }
     
  }
  
@@ -97,6 +105,7 @@ function scrlCheck () {
 window.onkeyup= function(event){
     
    // scrlCheck ();
+
     if (event.keyCode==37){
     slide('left');
     }
@@ -104,6 +113,7 @@ window.onkeyup= function(event){
     if (event.keyCode==39){
     slide('right');
     }
+
     
 }
 
@@ -115,70 +125,149 @@ function expandproject() {
      minimize();
     
     //needed variables for this function
+    
     var container = document.getElementById('midcontainer');
     var wid = container.offsetWidth;
-	currentproject=this;
+        currentproject=this;
     var idd= "#"+ currentproject.id;
     var projtop;
     var pjplate;
     
      //to close previous open projects
+    
     if (openproject==currentproject)
         return;
     
     if (openproject) {
         shrinkproject(openproject);   
-    }  
+    }
     
+    currentproject.style.backgroundImage='none';
+	
 	//this line is vital because the div needs to go to the new line and determine its new location on Y axis of the page to it is later prperly scorlled.
 	currentproject.style.width=wid+'px';
     currentproject.style.marginLeft='0px';
-	currentproject.style.backgroundImage='none';
-
-    //AJAX to get data from the server 
-    var httpreq= new XMLHttpRequest();  
+   
+    
+    
+    //AJAX to get data from the server
+    
+    var httpreq= new XMLHttpRequest();
+    
     httpreq.onreadystatechange = function() {
         
-		if (httpreq.readyState==4 && httpreq.status==200){
-		 	currentproject.innerHTML=httpreq.responseText; 
-        	pj=document.getElementById('pj');
-        	pj.style.backgroundImage="url('Projects_Gallery/"+ currentproject.id +"/cover.jpg')";
-		 	//I pass a value by an arbitrary named attribute
-		 	nofitems=pj.getAttribute("nofitems");
-         	//background of the artwork
-         	var artbg=document.createElement('div');
-         	artbg.id='artbg';
-			pj.appendChild(artbg);
-		 	slide('start');
-			
-			
+     if (httpreq.readyState==4 && httpreq.status==200){
+      currentproject.innerHTML=httpreq.responseText; 
+         
+        pj=document.getElementById('pj');
+        pj.style.backgroundImage="url('Projects_Gallery/"+ currentproject.id +"/cover.jpg')";
+        
+         //I pass a value by an arbitrary named attribute
+        nofitems=pj.getAttribute("nofitems");
+         
+         
+         //background of the artwork
+         var artbg=document.createElement('div');
+         artbg.id='artbg';
+         
+         //setting the height of the background
+           var ah=(window.innerHeight - 50) +'px';
+         artbg.style.height=ah;
+         
+         //creating the artwork holder
+         var art=document.createElement('div');
+         art.id='art';
+         
+         //left button
+         var left=document.createElement('div');
+         left.id ='left';
           
-		 	//JUQUERY BLOCK 
+         //right button
+          var right=document.createElement('div');
+         right.id='right';
          
-			$(document).ready(function() {
-
-				//this part makes the screen scroll to a specific element, I know too cool. OffsetTop did not work tho. -70 is because we have a                  fixed         banner and we want element to scroll below it and not in the top of the window.
-				projtop= ($(idd).offset().top) - 60
-
-				// hegiht of all project calcualted from height of inside elements 
-				var hgh2 =$('#desc').height()+$('#art').height()+300;
-
-						$(idd).animate({
-								//height of project is animted open
-								height:hgh2
-
-								}, 1000 , function() {
-
-												//this is when animation ends and mostlikely project load ends as well.
-												openproject = currentproject;
-
-						  });
-
-			   scrlto (idd);
-
-			}); //END OF JQUERY BLOCK
+         //adding handeler for the click of the left and right
+        left.onclick=function(){
+        slide ('left')
+        };
+        right.onclick=function(){
+        slide ('right')
+        };
          
-	 	}
+         //adding hover and leave effects
+         right.addEventListener( "mouseover" , hov );
+         left.addEventListener( "mouseover" , hov  );
+         left.onmouseout = out;
+         right.onmouseout = out;
+         
+         
+         //if clicked on the artwork screen is scrolled to the picture
+         art.onclick=function(){
+                    
+                 scrlto(this);
+         
+         };
+      
+            //left.onmouseout = hov();
+        
+        
+       
+         
+       
+         
+         //to the first picture
+         currentitem =1;
+         //setting the first picture
+         art.style.backgroundImage="url('Projects_Gallery/"+ currentproject.id +"/"+currentitem+ ".png')";
+         
+         
+        //appending created elements to the page
+         pj.appendChild(artbg);
+         artbg.appendChild(art); 
+         artbg.appendChild(left);
+         artbg.appendChild(right);
+        //JQuery
+         
+         
+         
+         
+         
+        //JUQUERY BLOCK 
+         
+        $(document).ready(function() {
+
+
+            //this part makes the screen scroll to a specific element, I know too cool. OffsetTop did not work tho. -70 is because we have a                  fixed         banner and we want element to scroll below it and not in the top of the window.
+            projtop= ($(idd).offset().top) - 60
+
+
+         
+               
+               // hegiht of all project calcualted from height of inside elements 
+                    var hgh2 =$('#desc').height()+$('#art').height()+300;
+               
+
+                    $(idd).animate({
+                            //height of project is animted open
+                            height:hgh2
+
+                            }, 1000 , function() {
+
+                                            //this is when animation ends and mostlikely project load ends as well.
+                                            openproject = currentproject;
+
+                      });
+
+        
+
+           scrlto (idd);
+			
+
+        }); //END OF JQUERY BLOCK
+         
+         
+      
+     }
     
        
     }
@@ -197,28 +286,63 @@ function expandproject() {
 
 function slide(direc) {
     
-	
-	  //AJAX to get data from the server 
-    var httpreq= new XMLHttpRequest();  
-    httpreq.onreadystatechange = function() {
-        
-		if (httpreq.readyState==4 && httpreq.status==200){
-			
-		 	document.getElementById('artbg').innerHTML=httpreq.responseText; 
-        	
-
-			
-	 	}
+    //if no project is open this function will not be processed
+    if(!openproject)
+    return;
     
-       
+    
+    if (direc=='left')
+    {
+        //go backwards in the list of arts
+        currentitem--;
+        
+        //if clicked left when the 1st art is showing it starts all over from the end
+        if(currentitem==0)
+        currentitem=nofitems;
+                
     }
     
-    //is should be sent outside the onreadystate 
-    // In here we also send the id of the project to retrive from the database 
-    httpreq.open ("GET", "art.php?url="+ direc + "&pj="+currentproject, true);
-    httpreq.send();
-  
+    if (direc=='right')
+    {
+        
+        currentitem++;
+        //if the last art is showing it starts from the begining 
+        if(currentitem>nofitems)
+        currentitem=1;
+    }
+    
+ 
+    var art= document.getElementById('art');
+    
+    //when slided it scroles to the art
+   // if (minimized==false)
+   //     minimize();
+    
+    //if not properly scrolled then scroll first
+    
+    scrlto (art);
 	
+    $(document).ready(function(){
+    
+		$(art).animate({
+
+		//current art fades away
+		opacity:0
+
+		}, 500, function(){
+
+			//art is changed and opacity is recovered
+		art.style.backgroundImage="url('Projects_Gallery/"+ currentproject.id +"/"+currentitem+".png')";
+		art.style.opacity='1';
+
+		});
+ 
+    });
+    
+    
+    //alert(currentitem);
+    
+    
 }
 
 

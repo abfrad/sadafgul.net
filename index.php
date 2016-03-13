@@ -31,21 +31,14 @@ include 'connect.php';
             <div id="hbfiller" >
                 
             </div>
-           <!-- <div id="hbfshadow" >
-                    
-                </div> -->
-        
-       <!-- <img id='pjs' src='img/pjj.fw.png'>
-        <img id='blg' src='img/blg.fw.png'>
-        
-           --> 
+           
         
         </div>
 	
 		
 		  
     
-        <div id='title'><!-- <p class='titletext'> PROJECTS </p><p class="titleshadow" > PROJECTS </p> --> </div>
+        
     
 		<div id="midcontainer">
         
