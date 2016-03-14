@@ -216,11 +216,12 @@ padding-top: 70px;
 background-color: #222222;
 max-height:4000px;
 position: relative;
+text-align: center;
 }
 
 #art {
 height: inherit;
-width: 100%;
+width: auto;
 border: none;
 background-repeat: no-repeat;
 background-position: center;
@@ -261,7 +262,7 @@ background-size:contain;
     z-index:999;
     right: 0;
     top: 0;
-    opacity: 0;
+   opacity: 0;
 }
 
 

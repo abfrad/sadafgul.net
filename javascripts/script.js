@@ -148,8 +148,17 @@ function expandproject() {
          	//background of the artwork
          	var artbg=document.createElement('div');
          	artbg.id='artbg';
+			//setting the height of the background
+			var ah=(window.innerHeight - 50) +'px';
+         	artbg.style.height=ah;
 			pj.appendChild(artbg);
-		 	slide('start');
+		 	slide('start', '0');
+			
+			
+			
+			 
+			 
+			
 			
 			
           
@@ -161,7 +170,7 @@ function expandproject() {
 				projtop= ($(idd).offset().top) - 60
 
 				// hegiht of all project calcualted from height of inside elements 
-				var hgh2 =$('#desc').height()+$('#art').height()+300;
+				var hgh2 =$('#desc').height()+$('#artbg').height()+300;
 
 						$(idd).animate({
 								//height of project is animted open
@@ -195,10 +204,10 @@ function expandproject() {
 
 
 
-function slide(direc) {
+function slide(direc, curart) {
     
 	
-	  //AJAX to get data from the server 
+	  //AJAX to get data from the server NOTE: since this is async connection you might want to write follow up adjusments that are depedandt of the output of the AJAX request in the onreadystate change only, if you try to wirte it after the method call, it might not work.
     var httpreq= new XMLHttpRequest();  
     httpreq.onreadystatechange = function() {
         
@@ -206,6 +215,25 @@ function slide(direc) {
 			
 		 	document.getElementById('artbg').innerHTML=httpreq.responseText; 
         	
+			//adding hover and leave effects to left adn right buttons
+			 var right=document.getElementById('right');
+			var left=document.getElementById('left');
+			
+			
+				//adding handeler for the click of the left and right
+				left.onclick=function(){
+				slide ('left')
+				};
+				right.onclick=function(){
+				slide ('right')
+				};
+			
+			
+			right.addEventListener( "mouseover" , hov );
+			 left.addEventListener( "mouseover" , hov  );
+			 left.onmouseout = out;
+			 right.onmouseout = out; 
+			
 
 			
 	 	}
@@ -215,7 +243,7 @@ function slide(direc) {
     
     //is should be sent outside the onreadystate 
     // In here we also send the id of the project to retrive from the database 
-    httpreq.open ("GET", "art.php?url="+ direc + "&pj="+currentproject, true);
+    httpreq.open ("GET", "art.php?dir="+ direc + "&pj="+currentproject.id +"&curart=" + curart , true);
     httpreq.send();
   
 	
