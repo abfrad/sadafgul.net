@@ -74,7 +74,7 @@ background-color: #E8E8E8;
 height:104px;
 z-index:102;
 position: relative;
-display:-webkit-box;
+display:flex;
 }
 
 
@@ -226,6 +226,7 @@ border: none;
 background-repeat: no-repeat;
 background-position: center;
 background-size:contain;
+opacity: 0;
 //position:;
 }
 
@@ -243,11 +244,13 @@ background-size:contain;
     display: inline-block;
     position: absolute;
     background-repeat: no-repeat;
-    background-position: center;
-    width:300px;
+    background-position: left;
+	padding-left: 30px;
+   	width:300px;
     z-index: 998;
     opacity: 0;
     top:0;
+	left:0;
 }
 
 #right{
@@ -256,8 +259,9 @@ background-size:contain;
     display:inline-block;
     position: absolute;
     background-repeat: no-repeat;
-    background-position: center;
-    width:300px;
+    background-position:right;
+	padding-right: 30px;
+   	width:300px;
     //background-color: aqua;
     z-index:999;
     right: 0;

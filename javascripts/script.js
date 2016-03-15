@@ -4,6 +4,7 @@ var currentitem;
 var currentproject;
 var nofitems;
 var tiledime;
+var curr_art;
 var spacer;
 var scroled=false;
 var minimized=false;
@@ -35,7 +36,7 @@ function out (evt) {
 function scrlto(elem) {
     
     //y offset of the page on the top part of the screen
-    var winpos=window.pageYOffset;
+    var winpos=window.scrollY;
     
     // alert ("this is element top postion" + elem.offsetTop);
     $(document).ready( function(){
@@ -98,11 +99,11 @@ window.onkeyup= function(event){
     
    // scrlCheck ();
     if (event.keyCode==37){
-    slide('left');
+    slide('left' , curr_art);
     }
 
     if (event.keyCode==39){
-    slide('right');
+    slide('right' , curr_art);
     }
     
 }
@@ -154,13 +155,7 @@ function expandproject() {
 			pj.appendChild(artbg);
 		 	slide('start', '0');
 			
-			
-			
-			 
-			 
-			
-			
-			
+		
           
 		 	//JUQUERY BLOCK 
          
@@ -214,22 +209,44 @@ function slide(direc, curart) {
 		if (httpreq.readyState==4 && httpreq.status==200){
 			
 		 	document.getElementById('artbg').innerHTML=httpreq.responseText; 
+			
+			$(document).ready (function(){
+			
+			  $('#art').animate ({
+			  
+				  
+				  opacity: '1'
+			  
+			  }, 1000);
+			
+			
+			});
         	
 			//adding hover and leave effects to left adn right buttons
 			 var right=document.getElementById('right');
 			var left=document.getElementById('left');
+			var art=document.getElementById('art');
+		
+			 curr_art = art.getAttribute('curart');
+			//alert(curr_art);
+			//alert(curart);
 			
+			art.onclick=function(){
+                    
+                 scrlto(this);
+         
+         };
 			
 				//adding handeler for the click of the left and right
 				left.onclick=function(){
-				slide ('left')
+				slide ('left', curr_art )
 				};
 				right.onclick=function(){
-				slide ('right')
+				slide ('right', curr_art )
 				};
 			
 			
-			right.addEventListener( "mouseover" , hov );
+			 right.addEventListener( "mouseover" , hov );
 			 left.addEventListener( "mouseover" , hov  );
 			 left.onmouseout = out;
 			 right.onmouseout = out; 
