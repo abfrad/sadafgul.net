@@ -19,18 +19,18 @@ include 'connect.php';
 
 	<body>
 	<div id="container">
-	
+
 		
         
 		<div id="hb"> 
             
 			
-			
-            <div id="logo"></div>
+			 <div id="logo">.</div>
+           
             
-            <div id="hbfiller" >
+        <!--    <div id="hbfiller" >
                 
-            </div>
+            </div> -->
            
         
         </div>

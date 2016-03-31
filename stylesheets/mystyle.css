@@ -30,7 +30,7 @@ a{
 
 #container {
 overflow: auto;
-//text-align: center;
+text-align: center;
 
 }
 
@@ -54,17 +54,18 @@ z-index:9998;
 top:0px;
 width: 100%;
 
+
 }
 
 
 #logo{
-
+margin: auto;
 background-image:url('../img/loga.fw.png');
 width: 291px;
 height:104px;
-float: left;
 z-index: 9999;
 background-size:100%;
+background-repeat: no-repeat;
 
 
 }
