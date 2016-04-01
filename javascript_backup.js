@@ -123,6 +123,30 @@ function expandproject() {
     
     
      minimize();
+	
+	 //  $(document).ready(function(){
+               
+
+           // $("#logo").animate({
+           // height:'53px',
+          //  width: '148px'
+          //  }, 1000 , function() {
+
+        //        $(hedbar).css({
+
+                    //'backgroundImage':"url('img/logas.fw.png')",
+					//'height':'53px',
+					//'width': '148px'
+         //       });
+               
+
+          //  });
+        
+          /*  $("#hbfiller").animate({
+            height: '53px'
+            }, 1000); */
+  
+     //   });
     
     //needed variables for this function
     
@@ -378,6 +402,42 @@ function minimize () {
 
 
 function maximize () {
+	
+	
+	
+   // $(document).ready(function(){
+       //the problem is this step executes before last step of minimize which changes the background back to small
+		
+         //   $(hedbar).css({    
+                //'backgroundImage':"url('img/loga.fw.png')",
+		//		'height':"104px",
+            	//'width': "291px"
+          //  });
+		//	minimized=false;
+
+
+           // $("#logo").animate({
+           // height:'104px',
+           // width: '291px'
+          //  }, 500 , function(){
+            //doing it again so the background changes back to lagre despite the interference of the minimize method 
+          //  $("#logo").css({    
+            //   'backgroundImage':"url('img/loga.fw.png')"
+           // });
+
+           // } );
+
+          /*  $("#hbfiller").animate({
+            height: '104px',
+
+            }, 500, function(){
+            
+            
+            
+            
+            }); */
+        
+    //    });
 
     $(document).ready(function(){
        //the problem is this step executes before last step of minimize which changes the background back to small

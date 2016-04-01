@@ -140,14 +140,6 @@ echo "
 
 $fin_id=$final['art_id'];
 
-echo "
-
-<div id='left' ></div>
-
-<div id='right' ></div>
-
-
-";
 
 
 

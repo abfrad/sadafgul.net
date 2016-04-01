@@ -23,14 +23,17 @@ include 'connect.php';
 		
         
 		<div id="hb"> 
-            
+           
+			 <div id="lfiller" >
+                
+            </div>
 			
 			 <div id="logo">.</div>
            
             
-        <!--    <div id="hbfiller" >
+          <div id="rfiller" >
                 
-            </div> -->
+            </div>
            
         
         </div>

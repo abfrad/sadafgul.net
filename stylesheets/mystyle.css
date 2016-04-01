@@ -53,6 +53,7 @@ position: fixed;
 z-index:9998;
 top:0px;
 width: 100%;
+height: 104px;
 
 
 }
@@ -62,19 +63,27 @@ width: 100%;
 margin: auto;
 background-image:url('../img/loga.fw.png');
 width: 291px;
-height:104px;
+height:inherit;
 z-index: 9999;
 background-size:100%;
 background-repeat: no-repeat;
+float: left;
 
 
 }
 
-#hbfiller {
+#lfiller {
 background-color: #E8E8E8;
-height:104px;
+height:inherit;
 z-index:102;
-position: relative;
+display:flex;
+float:left;
+}
+
+#rfiller {
+background-color: #E8E8E8;
+height:inherit;
+z-index:102;
 display:flex;
 }
 
@@ -220,6 +229,10 @@ position: relative;
 text-align: center;
 }
 
+#artplate{
+height: inherit;
+}
+
 #art {
 height: inherit;
 width: auto;
@@ -241,33 +254,35 @@ opacity: 0;
 
 #left{
     height: inherit;
-    background-image: url('../img/leftt.fw.png');
+    background-image: url('../img/left_arrow.png');
     display: inline-block;
     position: absolute;
     background-repeat: no-repeat;
-    background-position: left;
-	padding-left: 30px;
-   	width:300px;
+    background-position: center;
+	
+   	width:150px;
     z-index: 998;
     opacity: 0;
     top:0;
 	left:0;
+	
 }
 
 #right{
     height: inherit;
-    background-image: url('../img/rightt.fw.png');
+    background-image: url('../img/right_arrow.png');
     display:inline-block;
     position: absolute;
     background-repeat: no-repeat;
-    background-position:right;
-	padding-right: 30px;
-   	width:300px;
+    background-position:center;
+
+   	width:150px;
     //background-color: aqua;
     z-index:999;
     right: 0;
     top: 0;
    opacity: 0;
+	
 }
 
 
@@ -308,36 +323,34 @@ margin-top: 200px;
 
 /* Footer */
 .footer{
-background-color: #E8E8E8;
+
 margin:0px;
 padding: 10px;
 margin-top: 10px;
 position: relative;
 overflow:auto;
-}
-
-.footerbox {
-float:left;
-width: 400px;
-margin-left:10px;
 text-align: left;
-margin-right: 30px;
+background-color: #E8E8E8;
 }
 
-.footerbox p {
-line-height:120%;
-font-size: 10px;
-color: #6f6f6f;
+#about {
+width: 35%;
+float: left;
+padding-left: 50px;
+margin-right: 5px;
 }
 
-.footerbox a {
-color: #6f6f6f;
+#links {
+
+
 }
 
-.footerbox .title {
-color: #8aac02;
-font-size:10px;
+.link {
+display:inline-block;
+width: 50px;
+color:#444444;
 }
+
 
 #cpy {
 font-size:12px;

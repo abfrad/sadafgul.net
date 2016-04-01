@@ -27,67 +27,37 @@ while ($pjrow = mysqli_fetch_assoc($pjresult)) {
 
 }
 
-/*
-$path ="Projects_Gallery/$id";
-$files = scandir($path);
 
-
-for ($i=0 ; $i< count($files); $i++)
-{
-	
-	if ($files[$i] !='.' && $files[$i] !='..'&& $files[$i] !='_notes')
-	{
-//print($files[$i]);
-$file=pathinfo($path . $files[$i]);
-	//if ($file['extension']=='png')
-	//{
-	//	print($file['extension']);
-	//	print($files[$i]);
-		//echo ('<iframe width="560" height="315" src="https://www.youtube.com/embed/2hffbFKHJS4" frameborder="0" allowfullscreen></iframe>');
-		//echo($file);
-	//}
-	}
-}
-
-*/
 echo "
 
 
 <div id='pj' nofitems='$nofitems'>
 
 
- <div id='desc'>       
+	<div id='desc'>       
 
-        <div id='pjtitle' >
-            <div id='pjname'> $name </div>
+			<div id='pjtitle' >
+				<div id='pjname'> $name </div>
 
-            <div id='pjtype'> $pjtype </div>
+				<div id='pjtype'> $pjtype </div>
 
-        </div>
+			</div>
 
-            <div id='pjdesc'> <p> $desc </p> </div> 
-</div>            
-    
-    ";
+				<div id='pjdesc'> <p> $desc </p> </div> 
 
-//for ($i=1; $i<=$nofitems; $i++)
-    
-//{
-    
-  //  echo"
-    
-  //  <div class='art'> <img src='Projects_Gallery/$pjid/image$i.jpg'> </div>
-    
- //   ";
-   
-//}
+	</div> 
+	
+	<div id='artbg'>
 
-echo "
+		<div id='left' ></div>
 
+		<div id='right' ></div> 
+
+	</div> 
+	
 </div>
 
-
-";
+    ";
 
 
 

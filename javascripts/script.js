@@ -13,6 +13,13 @@ var scy;
 var scylogger;
 //timer for the scroll
 var scrltimer;
+// for the size of filler on noth sides of the logo
+var filrmaxwid;
+var filrminwid;
+// dfining some elements global to reduce javascript cals
+var logo;
+var lfiller;
+var hedbar;
 
 
 function hov (evt) {    
@@ -41,8 +48,8 @@ function scrlto(elem) {
     // alert ("this is element top postion" + elem.offsetTop);
     $(document).ready( function(){
     
-    //y offset of the element minus 55 pixels
-		var eltop= ($(elem).offset().top) - 55;
+    //y offset of the element minus 58 pixels
+		var eltop= ($(elem).offset().top) - 57;
 
 		$("body").animate ({
 
@@ -119,7 +126,7 @@ function expandproject() {
     var container = document.getElementById('midcontainer');
     var wid = container.offsetWidth;
 	currentproject=this;
-    var idd= "#"+ currentproject.id;
+    
     var projtop;
     var pjplate;
     
@@ -147,12 +154,16 @@ function expandproject() {
 		 	//I pass a value by an arbitrary named attribute
 		 	nofitems=pj.getAttribute("nofitems");
          	//background of the artwork
-         	var artbg=document.createElement('div');
-         	artbg.id='artbg';
+         	var artbg=document.getElementById('artbg');
+			
 			//setting the height of the background
 			var ah=(window.innerHeight - 50) +'px';
-         	artbg.style.height=ah;
-			pj.appendChild(artbg);
+			artbg.style.height=ah;
+			//this div is created to put the loaded art in it ... while conrtollers are also children of artbg
+			//this is done to prevent fading of controllers while sliding meaning controllers are independent from art plate
+			var artplate=document.createElement('div');
+			artplate.id='artplate';
+			artbg.appendChild(artplate);
 		 	slide('start', '0');
 			
 		
@@ -162,12 +173,12 @@ function expandproject() {
 			$(document).ready(function() {
 
 				//this part makes the screen scroll to a specific element, I know too cool. OffsetTop did not work tho. -70 is because we have a                  fixed         banner and we want element to scroll below it and not in the top of the window.
-				projtop= ($(idd).offset().top) - 60
+				projtop= ($(currentproject).offset().top) - 60
 
 				// hegiht of all project calcualted from height of inside elements 
-				var hgh2 =$('#desc').height()+$('#artbg').height()+300;
+				var hgh2 =$('#desc').height()+$('#artbg').height()+120;
 
-						$(idd).animate({
+						$(currentproject).animate({
 								//height of project is animted open
 								height:hgh2
 
@@ -178,7 +189,7 @@ function expandproject() {
 
 						  });
 
-			   scrlto (idd);
+			   scrlto (currentproject);
 
 			}); //END OF JQUERY BLOCK
          
@@ -208,7 +219,7 @@ function slide(direc, curart) {
         
 		if (httpreq.readyState==4 && httpreq.status==200){
 			
-		 	document.getElementById('artbg').innerHTML=httpreq.responseText; 
+		 	document.getElementById('artplate').innerHTML=httpreq.responseText; 
 			
 			$(document).ready (function(){
 			
@@ -270,66 +281,26 @@ function slide(direc, curart) {
 
 //the problem is when minimize is running maximise starts executing 
 function minimize () {
+	
+	 minimized=true;
+	 hedbar.style.height='53px';
+	 logo.style.width='148px'
+	 logo.style.backgroundImage="url('img/logas.fw.png')";
+	 lfiller.style.width=filrminwid;
 
-    $(document).ready(function(){
-               
-           
-
-            $("#logo").animate({
-            height:'53px',
-            width: '148px'
-            }, 1000 , function() {
-
-                $("#logo").css({
-
-                    'backgroundImage':"url('img/logas.fw.png')"
-                });
-                minimized=true;
-
-            });
-        
-            $("#hbfiller").animate({
-            height: '53px'
-            }, 1000);
-  
-        });
     } 
 
 
 
 
 function maximize () {
-
-    $(document).ready(function(){
-       //the problem is this step executes before last step of minimize which changes the background back to small
-            $("#logo").css({    
-                'backgroundImage':"url('img/loga.fw.png')"
-            });
-
-
-            $("#logo").animate({
-            height:'104px',
-            width: '291px'
-            }, 500 , function(){
-            //doing it again so the background changes back to lagre despite the interference of the minimize method 
-            $("#logo").css({    
-                'backgroundImage':"url('img/loga.fw.png')"
-            });
-
-            } );
-
-            $("#hbfiller").animate({
-            height: '104px',
-
-            }, 500, function(){
-            
-            
-            minimized=false;
-            
-            });
-        
-        });
-    
+	
+	 minimized=false;
+	 hedbar.style.height='104px';
+	 logo.style.width='291px'
+	 logo.style.backgroundImage="url('img/loga.fw.png')";
+	 lfiller.style.width=filrmaxwid;
+	
     } 
 
 
@@ -368,11 +339,22 @@ function draw() {
     //this one works, tiles are added to an array
     tiles=document.getElementsByClassName('tile');
     shades=document.getElementsByClassName('tileshade');
-    var title=document.getElementById("hb");
+	
+	//defining some global elemnts
+    hedbar=document.getElementById("hb");
+	lfiller=document.getElementById('lfiller');
+	logo=document.getElementById('logo');
+	
+	
      var midcon=document.getElementById("midcontainer");
-    
+	
+	//set the width of the fillers
+	filrmaxwid =((window.innerWidth - 291)/2)+'px';
+	filrminwid=((window.innerWidth - 148)/2)+'px';
+	lfiller.style.width=filrmaxwid;
+	
     //title click handler
-     title.onclick=function(){
+     hedbar.onclick=function(){
     
        
        alert (scylogger);
