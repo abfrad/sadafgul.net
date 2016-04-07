@@ -370,6 +370,91 @@ function slide(direc) {
 }
 
 
+function maximize () {
+	
+	/* minimized=false;
+	 hedbar.style.height='104px';
+	 logo.style.width='291px'
+	 logo.style.backgroundImage="url('img/loga.fw.png')";
+	 lfiller.style.width=filrmaxwid;
+	 */
+	
+	   $(document).ready(function(){
+               
+           $(logo).css({
+                    'backgroundImage':"url('img/logo.png')"
+                });
+
+            $(logo).animate({
+				
+            	width: logomaxwidth+'px'
+				
+            }, mmspeed , function() {
+
+                minimized=false;
+				 $(logo).css({
+                    'backgroundImage':"url('img/logo.png')"
+                });
+
+            });
+        
+            $(hedbar).animate({
+            height: hbmaxheight+'px'
+            }, mmspeed);
+		   
+		    $(lfiller).animate({
+            width: filrmaxwid+'px'
+            }, mmspeed);
+  
+        });
+	
+	
+	
+	
+	
+    } 
+
+
+
+function minimize () {
+	
+	/* minimized=true;
+	 hedbar.style.height='53px';
+	 logo.style.width='148px'
+	 logo.style.backgroundImage="url('img/logas.fw.png')";
+	 lfiller.style.width=filrminwid; */
+	
+	 $(document).ready(function(){
+               
+           
+
+            $(logo).animate({
+				
+           width: logominwidth+'px'
+				
+            }, mmspeed , function() {
+
+                $(logo).css({
+
+                   'backgroundImage':"url('img/logas.fw.png')"
+                });
+                minimized=true;
+
+            });
+        
+            $(hedbar).animate({
+            height: hbminheight+'px'
+            }, mmspeed);
+		   
+		    $(lfiller).animate({
+            width: filrminwid+'px'
+            }, mmspeed);
+  
+        });
+	
+	
+
+    } 
 
 //the problem is when minimize is running maximise starts executing 
 function minimize () {

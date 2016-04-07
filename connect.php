@@ -1,7 +1,7 @@
 <?php
 $servername="localhost";
-$username="root";
-$password="gogogaga";
+$username="sadafgul";
+$password="13GoyeAabi";
 
 
 //$servername="mysql9.mylogin.ie";

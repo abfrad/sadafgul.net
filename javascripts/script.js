@@ -2,12 +2,11 @@ var tiles;
 var openproject;
 var currentitem;
 var currentproject;
-var nofitems;
 var tiledime;
 var curr_art;
 var spacer;
+var scrollmax, scrollmin;
 var scroled=false;
-var minimized=false;
 //holds scroll position of the window
 var scy;
 var scylogger;
@@ -18,8 +17,14 @@ var filrmaxwid;
 var filrminwid;
 // dfining some elements global to reduce javascript cals
 var logo;
+var logominwidth, logomaxwidth;
 var lfiller;
 var hedbar;
+var hbminheight,hbmaxheight;
+//minimize maximize speed
+var mmspeed=500;
+var largefont, smallfont;
+var midcon;
 
 
 function hov (evt) {    
@@ -44,16 +49,16 @@ function scrlto(elem) {
     
     //y offset of the page on the top part of the screen
     var winpos=window.scrollY;
-    
+   
     // alert ("this is element top postion" + elem.offsetTop);
     $(document).ready( function(){
     
     //y offset of the element minus 58 pixels
-		var eltop= ($(elem).offset().top) - 57;
+		var eltop= ($(elem).offset().top) - scrollmin;
 
-		$("body").animate ({
+		$('html,body').animate ({
 
-			scrollTop: eltop
+			scrollTop:eltop
 
 		 }, 1000, function(){
 			//Item in proper scroll
@@ -73,29 +78,48 @@ $(document).ready(function() {
 
 window.onscroll=function() {
      
-    //var scy=this.scrollY;
-    scy=document.body.scrollTop;
+	var hbht =(midcon.offsetTop - window.scrollY)-spacer;
+	var logowidth=((hbht*291)/104);
+	 var filrwid =((window.innerWidth - logowidth)/2);
+	
+	if (hbht<hbminheight)
+	{
+	hedbar.style.height	= hbminheight+'px';
+	logo.style.width=logominwidth+'px';
+	lfiller.style.width=filrminwid+'px';
+	}
+	else
+	{
+	hedbar.style.height	= hbht+'px';
+	logo.style.width=logowidth+'px';
+	lfiller.style.width=filrwid+'px';
+	}
+
+	
+	/*
+   //var scy=this.scrollY;
+    scy=window.scrollY;
     scylogger=scylogger+" "+scy;
     // this clears the previous set timers, the only timer that will function would be the one that has one second time
     clearTimeout (scrltimer);
 
     scrltimer= setTimeout(function(){ 
 		scrlCheck();
-    }, 100);
+    }, 100); */
 
  } 
  
  
 function scrlCheck () {
 	 
-     scy=document.body.scrollTop;
+     scy=window.scrollY;
 	 
      if (scy<1){  
-         maximize();         
+                 
      } 
 	 
      else { 
-         minimize();          
+                  
      }
     
  }
@@ -120,7 +144,7 @@ window.onkeyup= function(event){
 function expandproject() {
     
     
-     minimize();
+     
     
     //needed variables for this function
     var container = document.getElementById('midcontainer');
@@ -150,14 +174,12 @@ function expandproject() {
 		if (httpreq.readyState==4 && httpreq.status==200){
 		 	currentproject.innerHTML=httpreq.responseText; 
         	pj=document.getElementById('pj');
-        	pj.style.backgroundImage="url('Projects_Gallery/"+ currentproject.id +"/cover.jpg')";
-		 	//I pass a value by an arbitrary named attribute
-		 	nofitems=pj.getAttribute("nofitems");
+        	
          	//background of the artwork
          	var artbg=document.getElementById('artbg');
 			
 			//setting the height of the background
-			var ah=(window.innerHeight - 50) +'px';
+			var ah=(window.innerHeight - scrollmin) +'px';
 			artbg.style.height=ah;
 			//this div is created to put the loaded art in it ... while conrtollers are also children of artbg
 			//this is done to prevent fading of controllers while sliding meaning controllers are independent from art plate
@@ -173,10 +195,10 @@ function expandproject() {
 			$(document).ready(function() {
 
 				//this part makes the screen scroll to a specific element, I know too cool. OffsetTop did not work tho. -70 is because we have a                  fixed         banner and we want element to scroll below it and not in the top of the window.
-				projtop= ($(currentproject).offset().top) - 60
+				//projtop= ($(currentproject).offset().top) - 60
 
-				// hegiht of all project calcualted from height of inside elements 
-				var hgh2 =$('#desc').height()+$('#artbg').height()+120;
+				// hegiht of all project calcualted from height of inside elements In here I fixed the hiding contenct of pj div 
+				var hgh2 =$('#pj').height();
 
 						$(currentproject).animate({
 								//height of project is animted open
@@ -237,12 +259,13 @@ function slide(direc, curart) {
 			 var right=document.getElementById('right');
 			var left=document.getElementById('left');
 			var art=document.getElementById('art');
+			var artbg=document.getElementById('artbg');
 		
 			 curr_art = art.getAttribute('curart');
 			//alert(curr_art);
 			//alert(curart);
 			
-			art.onclick=function(){
+			artbg.onclick=function(){
                     
                  scrlto(this);
          
@@ -280,28 +303,11 @@ function slide(direc, curart) {
 
 
 //the problem is when minimize is running maximise starts executing 
-function minimize () {
-	
-	 minimized=true;
-	 hedbar.style.height='53px';
-	 logo.style.width='148px'
-	 logo.style.backgroundImage="url('img/logas.fw.png')";
-	 lfiller.style.width=filrminwid;
-
-    } 
 
 
 
 
-function maximize () {
-	
-	 minimized=false;
-	 hedbar.style.height='104px';
-	 logo.style.width='291px'
-	 logo.style.backgroundImage="url('img/loga.fw.png')";
-	 lfiller.style.width=filrmaxwid;
-	
-    } 
+
 
 
 
@@ -309,16 +315,14 @@ function maximize () {
 function shrinkproject (tile) {
   
     
-    tile.style.height=tiledime;
-    tile.style.width=tiledime;
-	tile.style.marginLeft=spacer;
+    tile.style.height=tiledime+'px';
+    tile.style.width=tiledime+'px';
+	tile.style.marginLeft=spacer+'px';
     var pjname =document.getElementById('pjtype');
     var name=pjname.innerHTML;
 	// as project is it block to remove animation jumps, but as small tile its back to inline-blocks
     //tile.style.display='iblock';
-    tile.style.backgroundImage="url('img/"+ tile.id + ".png')";
-	
-    
+    tile.style.backgroundImage="url('img/"+ tile.id + ".jpg')";
     //replacing the shade 
     var shad=document.createElement('div');
     shad.className='tileshade';
@@ -344,30 +348,57 @@ function draw() {
     hedbar=document.getElementById("hb");
 	lfiller=document.getElementById('lfiller');
 	logo=document.getElementById('logo');
+     midcon=document.getElementById("midcontainer");
+	var footer=document.getElementById('footer');
+	var body=document.getElementsByTagName('body')[0];
+	
+	// Seting the tiles size
+    i=0;
+	var freeSpace=midcon.offsetWidth/20;
+	spacer=(freeSpace/6);
+	//-20 is for scrollbar
+	tiledime=((midcon.offsetWidth-freeSpace-20)/5);
+	
+	hbmaxheight=tiledime/2.5;
+	logomaxwidth=((hbmaxheight*291)/104);
+	var footerheight=hbmaxheight+(hbmaxheight/1.6); 
+	
+	hbminheight=tiledime/4;
+    logominwidth=((hbminheight*291)/104);
+	
+	//setting scroll space for both conditions
+	scrollmax=spacer+hbmaxheight;
+	var small_spacer=spacer/2;	
+	scrollmin=small_spacer+hbminheight;
+
+	//set the headbar and logo sizes
+	filrmaxwid =((window.innerWidth - logomaxwidth)/2);
+	filrminwid=((window.innerWidth - logominwidth)/2);
+	
+	//setting font sizes
+	largefont=((tiledime*18)/255);
+	smallfont=((tiledime*15)/255);
 	
 	
-     var midcon=document.getElementById("midcontainer");
 	
-	//set the width of the fillers
-	filrmaxwid =((window.innerWidth - 291)/2)+'px';
-	filrminwid=((window.innerWidth - 148)/2)+'px';
-	lfiller.style.width=filrmaxwid;
+	lfiller.style.width=filrmaxwid+'px';
+	logo.style.width=logomaxwidth+'px';
+	hedbar.style.height=hbmaxheight+'px';
+	midcon.style.marginTop=scrollmax+'px';
+	footer.style.height=footerheight+'px';
+	body.style.fontSize=smallfont+'px';
+	body.style.lineHeight=largefont+'px';
 	
     //title click handler
      hedbar.onclick=function(){
     
-       
-       alert (scylogger);
+     window.scrollTo(0, 0);
+
      
     }
     
 	 
-	// alert(midcon.offsetWidth);
-    i=0;
-	var freeSpace=midcon.offsetWidth/20;
-	spacer =(freeSpace/6)+'px';
-    tiledime=((midcon.offsetWidth-freeSpace-20)/5)+'px';
-     
+	
     
     do
     {
@@ -379,11 +410,11 @@ function draw() {
        
         shades[i].onmouseover=hov;
         shades[i].onmouseout=out;
-        tiles[i].style.backgroundImage="url('img/"+ tiles[i].id + ".png')";
-        tiles[i].style.height=tiledime;
-        tiles[i].style.width=tiledime;
-        tiles[i].style.marginLeft=spacer;
-		tiles[i].style.marginBottom=spacer;
+        tiles[i].style.backgroundImage="url('img/"+ tiles[i].id + ".jpg')";
+        tiles[i].style.height=tiledime+'px';
+        tiles[i].style.width=tiledime+'px';
+        tiles[i].style.marginLeft=spacer+'px';
+		tiles[i].style.marginBottom=spacer+'px';
         i++;
        
     }

@@ -1,51 +1,60 @@
 <?php
 
 ?>
-            <div class="footer">
+            <div id="footer">
 				
-				<div  id='about'>
-					
-					<div class="link">	
+				
+				<div id='about' >	
 						
-						<p>ABOUT ME</p>
+						<a href="#" target="_top">I am a designer, illustrator and photgrapher born in Kabul, currently based in London. I have studied fine arts and sculpture at the Kabul University, and received my BA in Visual Communication Design from Dun Loaghaire Institute of Art, Design and Technology in Ireland. I am very eager to get involved with innovative, progressive projects with visionary aims. I find my approach of design to be authentic, conscious and human oriendted in the meantime simple and clear. If you are interested to work with me please don’t hesitate to contact me  via links provided on the footer of this page. -Sadaf Ahmadi Frahmand
+						<br><br>
 						
-					</div>
-		
-					
-					
 				</div>
-				
 				
 				
 				<div id='links' >
 					
+					
+					
 					<div class="link">	
 						
-						<a href="#" target="_top"><img src="img/blog.png"></a>
+						<a href="mailto:ahmadisadaf@gmail.com" ><img src="img/email.png"></a>
+						
+					</div>
+					
+					<div class="link">	
+						
+						<a href="#" ><img src="img/facebook.png"></a>
+						
+					</div>	
+					
+					<div class="link">	
+						
+						<a href="http://twitter.com/Sadaffrah" ><img src="img/twitter.png"></a>
+						
+					</div>
+					
+					<div class="link">	
+						
+						<a href="http://sadafgul.tumblr.com/" ><img src="img/blog.png"></a>
 						
 					</div>
 				
-					<div class="link">	
-						
-						<a href="mailto:sadaf@sadafdesign.eu" target="_top"><img src="img/email.png"></a>
-						
-					</div>
-				
 				
 					<div class="link">	
 						
-						<a href="#" target="_top"><img src="img/facebook.png"></a>
+						<a href="http://www.youtube.com/channel/UC9oCR1vXkfUTlqYJ9v_7gbg" ><img src="img/youtube.png" ></a>
 						
 					</div>
+
 					<div class="link">	
 						
-						<a href="#" target="_top"><img src="img/youtube.png"></a>
+						<a href="https://vimeo.com/user21864790" ><img src="img/viemo.png"></a>
 						
-					</div>
+					</div><br>
+					
 					<div class="link">	
-						
-						<a href="#" target="_top"><img src="img/pintrest.png"></a>
-						
+					<a href="http://sadafgul.tumblr.com/">blog</a>
 					</div>
 				
 				
@@ -55,7 +64,7 @@
 
 
 				
- <div >	<p id="cpy"> © 2015 </p>  </div>
+ <div >	<p id="cpy"> ahmadisadaf@gmail.com +447448985414 © 2016 </p>  </div>
 
 
 

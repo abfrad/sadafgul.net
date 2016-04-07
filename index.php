@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <?php
 
@@ -18,6 +18,21 @@ include 'connect.php';
 	</head>
 
 	<body>
+		
+		
+		
+		
+		<noscript>
+    
+    <div class="noscriptmsg">
+    You don't have javascript enabled.  Good luck with that.
+    </div>
+    </noscript>
+		
+		
+		
+		
+		
 	<div id="container">
 
 		
